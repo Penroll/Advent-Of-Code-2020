@@ -22,11 +22,15 @@ public class AdventOfCode2020Day1 {
         Scanner input = new Scanner(new File("/Users/srgrealey/IdeaProjects/AdventOfCode2020/src/Day1/DayOneInput"));
         int[] values = getValues(input);
         int value = -1;
+        for (int  i : values)
+            for (int j : values)
+                if (i + j == 2020) value = i * j;
+        System.out.println("Part One Value: " + value);
         for (int i : values)
             for (int j : values)
                 for (int k : values)
                     if (i + j + k == 2020) value = i * j * k;
-        System.out.println(value);
+        System.out.println("Part Two Value: " + value);
     }
 
     /**

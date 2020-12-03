@@ -22,12 +22,20 @@ public class AdventOfCode2020Day2 {
         Scanner input = new Scanner(new File("/Users/srgrealey/IdeaProjects/AdventOfCode2020/src/Day2/DayTwoInput"));
         String[] values = getValues(input);
 
-        for (String value : values) {
-            if (isValid(value)) {
+        for (String value : values){
+            if (isValid(value)){
                 count++;
             }
         }
-        System.out.println(count);
+        System.out.println("Part 1 Answer: " + count);
+
+        count = 0;
+        for (String value : values) {
+            if (isValid2(value)) {
+                count++;
+            }
+        }
+        System.out.println("Part 2 Answer: " + count);
     }
 
     /**
@@ -46,7 +54,25 @@ public class AdventOfCode2020Day2 {
     }
 
     /**
-     * Determines if a password is valid
+     * Determines if a password is valid (part two parameters)
+     * @param line is the line being tested
+     * @return true if password is valid, otherwise false
+     */
+    public static boolean isValid2(String line){
+        int min = Integer.parseInt(line.substring(0,line.indexOf('-')));
+        int max = Integer.parseInt(line.substring(line.indexOf('-')+1,line.indexOf(' ')));
+        String letter = line.substring(line.indexOf(' ') + 1, line.indexOf(':'));
+        String password = line.substring(line.indexOf(':') + 2);
+        char[] chars = password.toCharArray(); //Changes password to char array
+
+        boolean first = Character.toString(chars[min - 1]).equals(letter);
+        boolean last = Character.toString(chars[max - 1]).equals(letter);
+
+        return (!first || !last) && (first || last);
+    }
+
+    /**
+     * Determines if a password is valid (part one parameters)
      * @param line is the line being tested
      * @return true if password is valid, otherwise false
      */
@@ -56,14 +82,10 @@ public class AdventOfCode2020Day2 {
         String letter = line.substring(line.indexOf(' ') + 1, line.indexOf(':'));
         String password = line.substring(line.indexOf(':') + 2);
         char[] chars = password.toCharArray(); //Changes password to char array
+        int count = 0;
 
-        //int count = 0;
-        //for (char i : chars) if (Character.toString(i).equals(letter)) count++;
-        //Code from part 1
+        for (char i : chars) if (Character.toString(i).equals(letter)) count++;
 
-        boolean first = Character.toString(chars[min - 1]).equals(letter);
-        boolean last = Character.toString(chars[max - 1]).equals(letter);
-
-        return (!first || !last) && (first || last);
+        return count <= max && count >= min;
     }
 }
