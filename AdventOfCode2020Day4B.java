@@ -10,8 +10,8 @@ public class AdventOfCode2020Day4B {
 
     public static String[] validECLs = {"amb", "blu", "brn", "gry", "grn", "hzl", "oth"};
     public static String byr, iyr, eyr, hgt, hcl, ecl, pid;
-    public static int pByr, pIyr, pEyr, pHgt, pHcl, pPid;
-    public static boolean validBYR, validIYR, validEYR, validHGT, validHCL, validECL, validPID, isCM;
+    public static int pByr, pIyr, pEyr, pHgt;
+    public static boolean isCM;
     public static void main(String[] args) throws IOException {
         String data = new String(Files.readAllBytes(Paths.get("/Users/srgrealey/IdeaProjects/AdventOfCode2020/src/Day4/DayFourInput")));
         String[] passports = data.split("\n\n");
@@ -27,7 +27,6 @@ public class AdventOfCode2020Day4B {
 
     public static void getData(String passport){
         byr = passport.substring(passport.indexOf("byr")+4, passport.indexOf("byr") + 8);
-        System.out.println(byr);
         try{
             pByr = Integer.parseInt(byr);
         }
@@ -92,6 +91,14 @@ public class AdventOfCode2020Day4B {
 
     public static boolean isValidHCL(){
         char[] hclChars = hcl.toCharArray();
+        if(hcl.length() != 7){
+            return false;
+        }
+        hcl = hcl.replace("#","");
+        hcl = hcl.replace(" ", "");
+        if(hcl.length() != 6){
+            return false;
+        }
         int numCorrectChars = 0;
         for(char c : hclChars){
             for(char d : validHCLs){
