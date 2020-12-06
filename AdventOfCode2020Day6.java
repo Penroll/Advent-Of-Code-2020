@@ -29,7 +29,7 @@ public class AdventOfCode2020Day6 {
         String[] values = data.split("\n\n");
         int numAllAnswered = 0, numQuestionsAnswered = 0;
         for(String value : values){
-            int[] count2 = new int[26];
+            int[] count2 = new int[letters.length];
             String[] people = value.split("\n");
             for(String letter : letters)
                 if (value.contains(letter))
